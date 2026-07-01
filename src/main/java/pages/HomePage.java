@@ -42,7 +42,7 @@ public class HomePage extends BasePage {
             By.xpath("//button[text()='Accept']");
 
     private final By dismissButton =
-            By.xpath("//button[@aria-label='Dismiss sign-in info.']");
+            By.xpath("//button[contains(@aria-label,'Dismiss')]");
 
     public void clickSearchButton() {
         actions.click(searchButton);
