@@ -1,231 +1,263 @@
-Automation Framework (UI - Selenium + TestNG)
+# Automation Framework (UI - Selenium + TestNG)
 
-This project is a UI test automation framework built with Java, Selenium WebDriver, TestNG, and Maven. The framework follows the Page Object Model (POM) design pattern and includes reusable utilities, reporting, retry logic, and cross-browser execution.
+This project is a UI test automation framework built with **Java**, **Selenium WebDriver**, **TestNG**, and **Maven**.
 
-🛠 Built With
-Maven – Dependency management and build tool
-Java 17 – Programming language
-TestNG – Test execution framework
-Selenium WebDriver – UI automation
-WebDriverManager – Automatic browser driver management
-ExtentReports – HTML test reporting
-Java Faker – Dynamic test data generation
+The framework follows the **Page Object Model (POM)** design pattern and includes reusable utilities, reporting, retry logic, and cross-browser execution.
 
-🧪 Framework Structure
-core
+---
+
+# 🛠 Built With
+
+- **Maven** – Dependency management and build tool
+- **Java** – Programming language
+- **TestNG** – Test execution framework
+- **Selenium WebDriver** – UI automation
+- **WebDriverManager** – Automatic browser driver management
+- **ExtentReports** – HTML reporting
+- **Java Faker** – Dynamic test data generation
+
+---
+
+# 🧪 Framework Structure
+
+## 📂 core
 
 Contains the core framework components.
 
-PropertiesManager
+### PropertiesManager
 
-Loads configuration values from config.properties.
+Loads configuration values from `config.properties`.
 
-SetupWebDriver
+### SetupWebDriver
 
-Initializes and manages WebDriver instances using ThreadLocal, enabling safe browser execution and future parallel testing.
+Initializes and manages WebDriver instances using **ThreadLocal**, enabling thread-safe execution and future parallel testing.
 
-Supports:
+**Supported browsers:**
 
-Chrome
-Firefox
-Edge
-UserActions
+- Chrome
+- Firefox
+- Edge
 
-Reusable Selenium actions that reduce duplicated code across the framework.
+### UserActions
+
+Provides reusable Selenium actions to reduce duplicated code.
 
 Includes methods for:
 
-clicking elements
-typing text
-explicit waits
-scrolling
-switching browser tabs
-switching iframes
-JavaScript execution
-waiting for page load
-taking screenshots
-Utils
+- Click elements
+- Enter text
+- Explicit waits
+- Scroll to elements
+- Switch browser tabs
+- Switch iframes
+- Execute JavaScript
+- Wait for page load
+- Capture screenshots
 
-Common helper methods used throughout the framework.
+### Utils
 
-ExtentReporterNG
+Contains reusable helper methods used throughout the framework.
 
-Creates and configures ExtentReports HTML reports.
+### ExtentReporterNG
 
-pages
+Creates and configures **ExtentReports** HTML reports.
 
-Implements the Page Object Model (POM).
+---
+
+## 📂 pages
+
+Implements the **Page Object Model (POM)**.
 
 Each page object contains:
 
-web element locators
-page-specific actions
-validations
+- Web element locators
+- Page-specific actions
+- Validations
 
-Current Page Objects:
+### Current Page Objects
 
-HomePage
-SearchResultsPage
-HotelDetailsPage
-GuestDetailsPage
-PaymentPage
+- HomePage
+- SearchResultsPage
+- HotelDetailsPage
+- GuestDetailsPage
+- PaymentPage
 
 Keeping UI interactions inside dedicated Page Objects improves maintainability, readability, and scalability.
 
-testData
+---
+
+## 📂 testData
 
 Contains reusable test data.
 
-BookingTestData
+### BookingTestData
 
-Stores predefined test values such as:
+Stores predefined values such as:
 
-destination
-travel dates
-number of guests
-hotel index
-maximum price
-TestDataGenerator
+- Destination
+- Travel dates
+- Number of guests
+- Hotel index
+- Maximum price
 
-Uses Java Faker to generate unique guest information for every execution:
+### TestDataGenerator
 
-first name
-last name
-email
-phone number
+Uses **Java Faker** to generate unique guest information for every execution:
+
+- First name
+- Last name
+- Email
+- Phone number
 
 This avoids hardcoded data and allows repeated executions without conflicts.
 
-testComponents
+---
 
-Framework infrastructure.
+## 📂 testComponents
 
-BaseTest
+Contains the framework infrastructure.
 
-Provides common test setup and teardown.
+### BaseTest
+
+Provides common setup and teardown functionality.
 
 Responsibilities include:
 
-WebDriver initialization
-opening the application
-Page Object initialization
-cookie acceptance
-screenshot creation
-Listeners
+- WebDriver initialization
+- Opening the application
+- Page Object initialization
+- Cookie acceptance
+- Screenshot creation
 
-Integrates TestNG with ExtentReports.
+### Listeners
+
+Integrates **TestNG** with **ExtentReports**.
 
 Automatically:
 
-generates HTML reports
-records test status
-attaches screenshots on failures
-Retry
+- Generates HTML reports
+- Records test execution status
+- Attaches screenshots to failed tests
 
-Retries failed tests automatically to minimize failures caused by temporary UI instability.
+### Retry
 
-tests
+Automatically retries failed tests to reduce failures caused by temporary UI instability.
 
-Contains the automated UI scenarios.
+---
 
-BookingTest
+## 📂 tests
+
+Contains the automated UI test scenarios.
+
+### BookingTest
 
 Automates an end-to-end Booking.com reservation flow:
 
-search destination
-select check-in and check-out dates
-validate occupancy
-apply filters
-open a hotel
-reserve the cheapest available room
-fill guest information
-validate the payment page
+- Search destination
+- Select check-in and check-out dates
+- Validate occupancy
+- Apply filters
+- Open a hotel
+- Reserve the cheapest available room
+- Fill guest information
+- Validate the payment page
 
-⚙️ Configuration
+---
+
+# ⚙️ Configuration
 
 Configuration file:
 
+```text
 src/main/resources/config.properties
+```
 
 Example:
 
+```properties
 browser=chrome
 timeoutSeconds=10
 base.url=https://booking.com
+```
 
-Supported browsers:
+### Supported browsers
 
-Chrome
-Firefox
-Edge
+- Chrome
+- Firefox
+- Edge
 
-Browser can also be overridden from the command line:
+You can override the browser from the command line:
 
--Dbrowser=firefox
+# ▶️ How to Run Tests
 
-or
+### Run all tests
 
--Dbrowser=edge
-
-▶️ How to Run Tests
-
-Run all tests
-
+```bash
 mvn clean test
+```
 
-Run TestNG suite
+### Run TestNG suite
 
-mvn clean test -DsuiteXmlFile=testng.xml
+```bash
+mvn clean test '-DsuiteXmlFile=testng.xml'
+```
 
-Run using Firefox
+The browser passed from the command line overrides the value defined in `config.properties`.
 
-mvn clean test -Dbrowser=firefox
+---
 
-Run using Edge
+# 📊 Reporting
 
-mvn clean test -Dbrowser=edge
-
-Command-line browser selection overrides the value defined in config.properties.
-
-📊 Reporting
-
-The framework generates ExtentReports after every execution.
+The framework generates **ExtentReports** after every execution.
 
 Reports are generated inside:
 
+```text
 reports/
+```
 
-The report includes:
+Each report includes:
 
-PASS / FAIL / SKIP status
-execution time
-detailed logs
-screenshots for failed tests
+- ✅ PASS / FAIL / SKIP status
+- Execution duration
+- Detailed logs
+- Stack traces
+- Screenshots for failed tests
 
-🔁 Retry Logic
+---
 
-Failed tests are automatically retried using TestNG Retry Analyzer, reducing failures caused by temporary UI instability.
+# 🔁 Retry Logic
 
-🖥 WebDriver Management
-ThreadLocal WebDriver
-WebDriverManager
-Cross-browser execution
-Ready for future parallel execution
+Failed tests are automatically retried using the **TestNG Retry Analyzer**, reducing failures caused by temporary UI instability.
 
-🧠 Design Patterns & Key Features
-Page Object Model (POM)
-ThreadLocal WebDriver
-Reusable Action Layer
-Explicit Waits
-Dynamic Test Data Generation
-Screenshot Capture on Failure
-ExtentReports Integration
-Retry Mechanism
-Cross-Browser Support
-Scalable Framework Architecture
+---
 
-📌 Notes
+# 🖥 WebDriver Management
 
-The framework is designed for UI automation of the Booking.com reservation flow.
+- ThreadLocal WebDriver
+- WebDriverManager
+- Cross-browser execution
+- Ready for future parallel execution
 
-Its architecture focuses on maintainability, reusability, and scalability, making it easy to extend with additional Page Objects, reusable components, and automated test scenarios.
+---
+
+# 🧠 Design Patterns & Key Features
+
+- ✅ Page Object Model (POM)
+- ✅ ThreadLocal WebDriver
+- ✅ Reusable Action Layer
+- ✅ Explicit Waits
+- ✅ Dynamic Test Data Generation
+- ✅ Screenshot Capture on Failure
+- ✅ ExtentReports Integration
+- ✅ Retry Mechanism
+- ✅ Cross-Browser Support
+- ✅ Scalable Framework Architecture
+
+---
+
+# 📌 Notes
+
+This framework is designed for UI automation of the **Booking.com reservation flow**.
+
+Its architecture focuses on **maintainability**, **reusability**, and **scalability**, making it easy to extend with additional Page Objects, reusable components, and automated test scenarios.

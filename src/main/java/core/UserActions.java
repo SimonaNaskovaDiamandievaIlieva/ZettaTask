@@ -26,6 +26,10 @@ public class UserActions {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
+
     public WebElement waitForVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
@@ -115,20 +119,6 @@ public class UserActions {
         File target = new File(SCREENSHOTS_DIR + fileName + ".png");
 
         FileUtils.copyFile(source, target);
-    }
-
-    public void clickIfPresent(By locator, int timeoutSeconds) {
-        try {
-            WebDriverWait shortWait =
-                    new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-
-            WebElement el =
-                    shortWait.until(ExpectedConditions.elementToBeClickable(locator));
-
-            el.click();
-
-        } catch (TimeoutException ignored) {
-        }
     }
 
     public void switchToFrame(By frameLocator) {

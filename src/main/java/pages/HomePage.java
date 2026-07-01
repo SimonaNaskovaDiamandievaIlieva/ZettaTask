@@ -49,7 +49,8 @@ public class HomePage extends BasePage {
     }
 
     public void clickDismissButton() {
-        actions.clickIfPresent(dismissButton, 2);
+        actions.waitForVisible(dismissButton);
+        actions.click(dismissButton);
     }
 
     public void enterDestination(String text) {

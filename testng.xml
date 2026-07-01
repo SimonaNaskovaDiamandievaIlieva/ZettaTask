@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Automation Suite">
+
+    <test name="Regression Tests">
+        <classes>
+            <class name="uiTest.BookingTest"/>
+        </classes>
+    </test>
+
+</suite>
